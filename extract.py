@@ -52,7 +52,9 @@ def frame_average(frames_dir, dest_dir, alpha=0.1, thresh=5):
 
 
 def patch_frames(src_dir, dest_dir):
-    # Segment a single frame into 3 parts, in region W: [0. ,.5], [.25, .75], [.5, 1.]
+    """
+    Segment a single frame into 3 parts, in region W: [0. ,.5], [.25, .75], [.5, 1.]
+    """
     Path(dest_dir).mkdir(parents=True, exist_ok=True)
 
     # folders = os.listdir(src_dir).sort()
