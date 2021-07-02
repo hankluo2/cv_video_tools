@@ -1,6 +1,7 @@
 from pathlib import Path
 from math import log10, ceil, floor
 import json
+from shutil import copy
 
 
 def make_single_level_category_hash(root, pattern='.mp4', dest='./'):
@@ -25,12 +26,8 @@ def make_single_level_category_hash(root, pattern='.mp4', dest='./'):
         for file in dir.glob("*" + pattern):
             suffix = str(sfx_cnt).zfill(file_dgt_cnt)
             filename = preffix + suffix + pattern
-            hash_table[str(file)] = dest + filename
+            hash_table[str(file)] = dest + '/' + filename
             sfx_cnt += 1
         prf_cnt += 1
 
     return hash_table
-
-
-map = make_single_level_category_hash('/home/roxy/lab/DATASETS/TrafficAccidents', pattern='.mp4', dest='./')
-print(map)
