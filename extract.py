@@ -10,6 +10,7 @@ def extract_frames_from_video(src_video_path, dest_dir, interval):
     """ judge whether destination exists
     Args:
         interval: extract and save one frame per `interval` frames.
+        interval aka frame rate: in this condition extract one frame per 1 second.
     """
     Path(dest_dir).mkdir(parents=True, exist_ok=True)
 
@@ -20,10 +21,12 @@ def extract_frames_from_video(src_video_path, dest_dir, interval):
     else:
         rval = False
 
-    # timeF = interval
+    # timeF = interval, aka frame rate (FR)
+    icnt = 1
     while rval:
         if cnt % interval == 0:
-            cv.imwrite(dest_dir + '/' + '%06d' % cnt + '.jpg', frame)
+            cv.imwrite(dest_dir + '/' + '%06d' % icnt + '.jpg', frame)
+            icnt += 1
         cnt += 1
         rval, frame = vc.read()
     vc.release()  # release video capture
