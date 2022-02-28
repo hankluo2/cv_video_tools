@@ -14,10 +14,10 @@ def extract_frames_from_video(src_video_path, dest_dir, interval):
     """
     Path(dest_dir).mkdir(parents=True, exist_ok=True)
 
-    vc = cv.VideoCapture(src_video_path)  # set video capture
+    cap = cv.VideoCapture(src_video_path)  # set video capture
     cnt = 1
-    if vc.isOpened():
-        rval, frame = vc.read()
+    if cap.isOpened():
+        rval, frame = cap.read()
     else:
         rval = False
 
@@ -28,8 +28,8 @@ def extract_frames_from_video(src_video_path, dest_dir, interval):
             cv.imwrite(dest_dir + '/' + '%06d' % icnt + '.jpg', frame)
             icnt += 1
         cnt += 1
-        rval, frame = vc.read()
-    vc.release()  # release video capture
+        rval, frame = cap.read()
+    cap.release()  # release video capture
 
 
 # Averaging frames based on extracted frames from a video. Interval set default by num of extracted frames.
@@ -70,3 +70,25 @@ def patch_frames(src_dir, dest_dir):
         cv.imwrite(dest_dir + "/" + f.stem + "_1" + ".jpg", D[:, 0:W // 2, :])
         cv.imwrite(dest_dir + "/" + f.stem + "_2" + ".jpg", D[:, W // 4:W // 2 + W // 4, :])
         cv.imwrite(dest_dir + "/" + f.stem + "_3" + ".jpg", D[:, W // 2:, :])
+
+
+def get_video_info(video_path):
+    """Get video information of a video.
+
+    """
+    cap = cv.VideoCapture(video_path)
+    fps = int(round(cap.get(cv.CAP_PROP_FPS)))  # frame per second
+    width = int(cap.get(cv.CAP_PROP_FRAME_WIDTH))  # resolution-width
+    height = int(cap.get(cv.CAP_PROP_FRAME_HEIGHT))  # resolution-height
+    frame_counter = int(cap.get(cv.CAP_PROP_FRAME_COUNT))  # frame total num.
+    cap.release()
+    cv.destroyAllWindows()
+    duration = frame_counter / fps  # duration
+
+    # print(cap, fps, width, height, frame_counter, duration)
+    print("cap:", cap)
+    print("fps:", fps)
+    print("width", width)
+    print("height", height)
+    print("frame_counter", frame_counter)
+    print("duration", duration)

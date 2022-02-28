@@ -131,3 +131,7 @@ dmypy.json
 
 # main func
 main_factory.py
+
+# outputs
+out/
+outputs

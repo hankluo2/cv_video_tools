@@ -1,0 +1,10 @@
+hydra:
+  run:
+    dir: out
+
+input_root: /root/datasets/CATS/scene01remake
+output_root: CATS_video/
+fps: 25
+format: png
+frame_shift: 90
+video_format: mp4
